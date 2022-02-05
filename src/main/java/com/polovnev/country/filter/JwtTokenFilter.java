@@ -2,6 +2,7 @@ package com.polovnev.country.filter;
 
 import com.polovnev.country.util.JwtTokenUtil;
 import org.springframework.http.HttpHeaders;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -33,10 +33,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain chain)
+                                    @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain chain)
             throws ServletException, IOException {
-        // Get authorization header and validate
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (isEmpty(header) || !header.startsWith("Bearer ")) {
             chain.doFilter(request, response);
@@ -45,8 +44,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         final String token = header.split(" ")[1].trim();
 
-
-        // Get user identity and set it on the spring security context
         UserDetails userDetails = userDetailsService
                 .loadUserByUsername(jwtTokenUtil.extractUsername(token));
 
@@ -56,9 +53,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
 
         UsernamePasswordAuthenticationToken
-                authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
-                userDetails == null ?
-                        Collections.emptyList() : userDetails.getAuthorities()
+                authentication = new UsernamePasswordAuthenticationToken(userDetails,
+                null, userDetails.getAuthorities()
         );
 
         authentication.setDetails(
