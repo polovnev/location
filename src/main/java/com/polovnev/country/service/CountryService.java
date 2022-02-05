@@ -8,6 +8,12 @@ public interface CountryService {
 
     List<Country> findAll();
 
-    void addCountry(Country country);
+    Country findById(Long id);
+
+    Country addCountry(Country country);
+
+    Country updateCountry(Long id, Country country);
+
+    void deleteCountry(Long id);
 
 }
