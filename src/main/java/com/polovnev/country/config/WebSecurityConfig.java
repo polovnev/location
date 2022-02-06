@@ -3,6 +3,8 @@ package com.polovnev.country.config;
 import com.polovnev.country.filter.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.http.HttpServletResponse;
 
+@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -61,8 +64,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Set permissions on endpoints
         http.authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/login", "/country**").permitAll()
+                .antMatchers(HttpMethod.POST, "/country").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.PUT, "/country/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/country/**").hasRole("ADMIN");
 
         // Add JWT token filter
         http.addFilterBefore(

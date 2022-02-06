@@ -14,9 +14,7 @@ import static java.lang.String.format;
 @Component
 public class JwtTokenUtil {
 
-    private final String jwtSecret = "aYEFtKMCn0xCg5caH1nnFuHfdAB0lBOvdonxq80VqOGNnG6QcyagXWOLrUdqJnzexUXYceMhGNFNYsA" +
-            "6rblSibUEh0Polo3XO1um1iMdvnevPzj4zKlokcu9TxTbz5DHYVLkqX3q9JrLgbLZFXD8ynOHfRHRL5Ge64iFZBVm9X517fwZrNornOm" +
-            "K2L7hUz10SgZpxAz6";
+    private final String jwtSecret = "aYEFtKMCn0xCg5caH1nnFuHfdAB0lBOvdonxq80VqOGNnG6QcyagXWOLrUdqJnzexUXYceMhGNFNYsA";
 
     public String extractUsername(String token) {
         return extractClaim(token,Claims::getSubject);
@@ -48,7 +46,7 @@ public class JwtTokenUtil {
         long currentTimeMillis = System.currentTimeMillis();
         return Jwts.builder().setClaims(claims).setSubject(subject).setExpiration(new Date(currentTimeMillis))
                 .setExpiration(new Date(currentTimeMillis + 1000 * 60 * 60))
-                .signWith(SignatureAlgorithm.HS256, jwtSecret).compact();
+                .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
