@@ -1,4 +1,4 @@
-package com.polovnev.country.service.impl;
+package com.polovnev.country.listener;
 
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
