@@ -1,7 +1,8 @@
 package com.polovnev.country.controller;
 
+import com.polovnev.country.dto.CountryDto;
 import com.polovnev.country.entity.Country;
-import com.polovnev.country.service.CountryService;
+import com.polovnev.country.facade.CountryFacade;
 import com.polovnev.country.service.CustomMessageSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,36 +14,36 @@ import java.util.List;
 public class CountryController {
 
     @Autowired
-    private CountryService countryService;
+    private CountryFacade countryFacade;
 
     @Autowired
     private CustomMessageSenderService customMessageSenderService;
 
     @GetMapping
-    public List<Country> getAllCountries() {
-        return countryService.findAll();
+    public List<CountryDto> getAllCountries() {
+        return countryFacade.findAll();
     }
 
     @GetMapping("/{id}")
-    public Country getCountry(@PathVariable Long id) {
-        return countryService.findById(id);
+    public CountryDto getCountry(@PathVariable Long id) {
+        return countryFacade.findById(id);
     }
 
     @PostMapping()
-    public Country addCountry(@RequestBody Country country) {
-        Country savedCountry = countryService.addCountry(country);
+    public CountryDto addCountry(@RequestBody CountryDto countryDto) {
+        CountryDto savedCountry = countryFacade.addCountry(countryDto);
         customMessageSenderService.sendMessage(savedCountry);
         return savedCountry;
     }
 
     @PutMapping("/{id}")
-    public Country updateCountry(@PathVariable Long id, @RequestBody Country country) {
-        return countryService.updateCountry(id, country);
+    public CountryDto updateCountry(@PathVariable Long id, @RequestBody CountryDto countryDto) {
+        return countryFacade.updateCountry(id, countryDto);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCountry(@PathVariable Long id) {
-         countryService.deleteCountry(id);
+         countryFacade.deleteCountry(id);
     }
 
 

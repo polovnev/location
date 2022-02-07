@@ -41,7 +41,7 @@ public class CountryFacade {
         return countryConverter.entityToCountryDto(savedCountry);
     }
 
-    void deleteCountry(Long id) {
+    public void deleteCountry(Long id) {
         countryService.deleteCountry(id);
     }
 }
