@@ -2,6 +2,7 @@ package com.polovnev.country.controller;
 
 import com.polovnev.country.entity.Country;
 import com.polovnev.country.service.CountryService;
+import com.polovnev.country.service.CustomMessageSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,9 @@ public class CountryController {
 
     @Autowired
     private CountryService countryService;
+
+    @Autowired
+    private CustomMessageSenderService customMessageSenderService;
 
     @GetMapping
     public List<Country> getAllCountries() {
@@ -26,7 +30,9 @@ public class CountryController {
 
     @PostMapping()
     public Country addCountry(@RequestBody Country country) {
-        return countryService.addCountry(country);
+        Country savedCountry = countryService.addCountry(country);
+        customMessageSenderService.sendMessage(savedCountry);
+        return savedCountry;
     }
 
     @PutMapping("/{id}")
@@ -38,4 +44,6 @@ public class CountryController {
     public void deleteCountry(@PathVariable Long id) {
          countryService.deleteCountry(id);
     }
+
+
 }
