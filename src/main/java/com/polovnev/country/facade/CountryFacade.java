@@ -1,11 +1,9 @@
 package com.polovnev.country.facade;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polovnev.country.converter.CountryConverter;
 import com.polovnev.country.dto.CountryDto;
 import com.polovnev.country.entity.Country;
 import com.polovnev.country.service.CountryService;
-import com.polovnev.country.service.CustomMessageSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +19,6 @@ public class CountryFacade {
     @Autowired
     private CountryConverter countryConverter;
 
-    @Autowired
-    private CustomMessageSenderService customMessageSenderService;
 
 
     public List<CountryDto> findAll() {
@@ -39,10 +35,6 @@ public class CountryFacade {
         Country country = countryConverter.dtoToEntity(countryDto);
         Country savedCountry = countryService.addCountry(country);
         return countryConverter.entityToCountryDto(savedCountry);
-    }
-
-    public void addCountryRabbit(CountryDto countryDto)  {
-        customMessageSenderService.sendMessage(countryDto);
     }
 
     public CountryDto updateCountry(Long id, CountryDto countryDto) {
