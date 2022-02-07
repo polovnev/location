@@ -1,6 +1,9 @@
 package com.polovnev.country.service;
 
+
+import com.polovnev.country.dto.CountryDto;
+
 public interface CustomMessageSenderService {
 
-    void sendMessage(Object message);
+    void sendMessage(CountryDto countryDto);
 }

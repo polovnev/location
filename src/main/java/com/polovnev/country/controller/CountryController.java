@@ -1,5 +1,7 @@
 package com.polovnev.country.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polovnev.country.dto.CountryDto;
 import com.polovnev.country.entity.Country;
 import com.polovnev.country.facade.CountryFacade;
@@ -30,10 +32,8 @@ public class CountryController {
     }
 
     @PostMapping()
-    public CountryDto addCountry(@RequestBody CountryDto countryDto) {
-        CountryDto savedCountry = countryFacade.addCountry(countryDto);
-        customMessageSenderService.sendMessage(savedCountry);
-        return savedCountry;
+    public void addCountry(@RequestBody CountryDto countryDto) throws JsonProcessingException {
+         countryFacade.addCountryRabbit(countryDto);
     }
 
     @PutMapping("/{id}")

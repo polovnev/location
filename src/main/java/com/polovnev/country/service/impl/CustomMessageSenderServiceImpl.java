@@ -1,6 +1,10 @@
 package com.polovnev.country.service.impl;
 
+import com.polovnev.country.dto.CountryDto;
 import com.polovnev.country.service.CustomMessageSenderService;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +18,7 @@ public class CustomMessageSenderServiceImpl implements CustomMessageSenderServic
     }
 
     @Override
-    public void sendMessage(Object message) {
-        rabbitTemplate.convertAndSend("country","create", message.toString());
+    public void sendMessage(CountryDto countryDto) {
+        rabbitTemplate.convertAndSend("country","create", countryDto);
     }
 }
