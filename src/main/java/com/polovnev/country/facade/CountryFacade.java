@@ -19,8 +19,6 @@ public class CountryFacade {
     @Autowired
     private CountryConverter countryConverter;
 
-
-
     public List<CountryDto> findAll() {
         return countryService.findAll().stream()
                 .map(countryConverter::entityToCountryDto).collect(Collectors.toList());
