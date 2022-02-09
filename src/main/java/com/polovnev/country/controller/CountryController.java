@@ -25,4 +25,9 @@ public class CountryController {
         return countryFacade.findById(id);
     }
 
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
+
 }
