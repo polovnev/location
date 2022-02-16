@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
-
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @Data
@@ -24,6 +24,8 @@ public class Country {
     @Column(name = "name")
     private String name;
 
-    public Country() {
-    }
+    @OneToMany(mappedBy="country")
+    private Set<Location> locations;
+
+    public Country() {}
 }

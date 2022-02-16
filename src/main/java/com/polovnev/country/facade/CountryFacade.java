@@ -21,24 +21,24 @@ public class CountryFacade {
 
     public List<CountryDto> findAll() {
         return countryService.findAll().stream()
-                .map(countryConverter::entityToCountryDto).collect(Collectors.toList());
+                .map(countryConverter::entityToDto).collect(Collectors.toList());
     }
 
     public CountryDto findById(Long id) {
         Country country = countryService.findById(id);
-        return countryConverter.entityToCountryDto(country);
+        return countryConverter.entityToDto(country);
     }
 
     public CountryDto addCountry(CountryDto countryDto) {
         Country country = countryConverter.dtoToEntity(countryDto);
         Country savedCountry = countryService.addCountry(country);
-        return countryConverter.entityToCountryDto(savedCountry);
+        return countryConverter.entityToDto(savedCountry);
     }
 
     public CountryDto updateCountry(Long id, CountryDto countryDto) {
         Country country = countryConverter.dtoToEntity(countryDto);
         Country savedCountry = countryService.updateCountry(id, country);
-        return countryConverter.entityToCountryDto(savedCountry);
+        return countryConverter.entityToDto(savedCountry);
     }
 
     public void deleteCountry(Long id) {

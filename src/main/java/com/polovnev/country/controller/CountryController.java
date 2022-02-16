@@ -25,4 +25,9 @@ public class CountryController {
         return countryFacade.findById(id);
     }
 
+    @PostMapping
+    public CountryDto addCountry(@RequestBody CountryDto countryDto) {
+        return countryFacade.addCountry(countryDto);
+    }
+
 }
