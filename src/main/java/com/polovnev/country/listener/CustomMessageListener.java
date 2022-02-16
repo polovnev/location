@@ -14,13 +14,13 @@ public class CustomMessageListener {
     @Autowired
     private CountryFacade countryFacade;
 
-    @RabbitListener(queues = "country create")
+    //@RabbitListener(queues = "country create")
     public void receiveMessage(final CountryDto countryDto) {
         CountryDto savedCountryDto = countryFacade.addCountry(countryDto);
         System.out.println("Country saved with name: " + savedCountryDto.getName());
     }
 
-    @RabbitListener(queues = "country delete")
+    //@RabbitListener(queues = "country delete")
     public void receiveMessage(final Long countryId) {
         countryFacade.deleteCountry(countryId);
         System.out.println("Country deleted with id: " + countryId);

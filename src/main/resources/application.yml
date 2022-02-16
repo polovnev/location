@@ -2,6 +2,6 @@ server:
     port: 8000
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5432/country
+        url: jdbc:postgresql://localhost:5432/location
     liquibase:
         change-log: classpath:db/liquibase/changelog.xml
