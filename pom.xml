@@ -108,8 +108,8 @@
 			<extensions>true</extensions>
 			<configuration>
 				<baseClassForTests>
-					com.polovnev.country.springcloudcontractproducer.BaseTest
-				</baseClassForTests>
+                    com.polovnev.location.springcloudcontractproducer.BaseTest
+                </baseClassForTests>
 			</configuration>
 		</plugin>
 		</plugins>
