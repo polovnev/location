@@ -7,7 +7,8 @@ Contract.make {
         url("/country")
     }
     response {
-        body("[{\"id\":1,\"name\":\"countryOne\"},{\"id\":2,\"name\":\"countryTwo\"}]")
+        body("[{\"id\":1,\"name\":\"countryOne\"}," +
+                "{\"id\":2,\"name\":\"countryTwo\"}]")
         status 200
     }
 }

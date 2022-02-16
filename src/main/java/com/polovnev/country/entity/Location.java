@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "location")
 @ToString
 public class Location {

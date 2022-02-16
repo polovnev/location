@@ -2,8 +2,11 @@ package com.polovnev.country.springcloudcontractproducer;
 
 import com.polovnev.country.controller.CountryController;
 
+import com.polovnev.country.controller.LocationController;
 import com.polovnev.country.dao.CountryRepository;
+import com.polovnev.country.dao.LocationRepository;
 import com.polovnev.country.entity.Country;
+import com.polovnev.country.entity.Location;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,14 +32,20 @@ public class BaseTest {
     @Autowired
     private CountryController countryController;
 
+    @Autowired
+    private LocationController locationController;
+
     @MockBean
     private CountryRepository countryRepository;
+
+    @MockBean
+    private LocationRepository locationRepository;
 
     @BeforeEach
     public void setup() {
         setupDbInteraction();
         StandaloneMockMvcBuilder standaloneMockMvcBuilder
-                = MockMvcBuilders.standaloneSetup(countryController);
+                = MockMvcBuilders.standaloneSetup(countryController, locationController);
         RestAssuredMockMvc.standaloneSetup(standaloneMockMvcBuilder);
     }
 
@@ -47,5 +56,12 @@ public class BaseTest {
                 .build();
         List<Country> countries = Arrays.asList(countryOne, countryTwo);
         Mockito.when(countryRepository.findAll()).thenReturn(countries);
+
+        Location locationOne = Location.builder().id(1L).name("LocationOneForCountryOne")
+                .country(countryOne).build();
+        Location locationTwo = Location.builder().id(2L).name("LocationTwoForCountryOne")
+                .country(countryOne).build();
+        List<Location> locations = Arrays.asList(locationOne, locationTwo);
+        Mockito.when(locationRepository.findByCountry_Id(1L)).thenReturn(locations);
     }
 }
