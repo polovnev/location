@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="create location table" author="Oleksandr Polovnev">
+        <createTable tableName="location">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(100)"/>
+            <column name="country_id" type="bigint"/>
+        </createTable>
+
+        <addAutoIncrement tableName="location" columnName="id" columnDataType="bigint" startWith="1" incrementBy="1"/>
+
+        <addForeignKeyConstraint  baseColumnNames="country_id"
+                                  baseTableName="location"
+                                  baseTableSchemaName="public"
+                                  constraintName="fk_location_country"
+                                  onDelete="CASCADE"
+                                  referencedColumnNames="id"
+                                  referencedTableName="country"
+                                  referencedTableSchemaName="public"/>
+    </changeSet>
+</databaseChangeLog>
