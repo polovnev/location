@@ -21,4 +21,9 @@ public class LocationController {
     public List<LocationDto> findByCountryId(@PathVariable Long countryId) {
         return locationFacade.findByCountryId(countryId);
     }
+
+    @GetMapping("/{locationId}")
+    public LocationDto findByLocationId(@PathVariable Long locationId) {
+        return locationFacade.getLocationById(locationId);
+    }
 }

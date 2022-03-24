@@ -18,4 +18,10 @@ public class LocationServiceImpl implements LocationService {
     public List<Location> findByCountryId(Long countryId) {
         return locationRepository.findByCountry_Id(countryId);
     }
+
+    @Override
+    public Location getLocationById(Long locationId) {
+        return locationRepository.findById(locationId)
+                .orElseThrow(() -> new RuntimeException("Location not found"));
+    }
 }

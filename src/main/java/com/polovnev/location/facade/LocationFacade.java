@@ -2,6 +2,7 @@ package com.polovnev.location.facade;
 
 import com.polovnev.location.converter.LocationConverter;
 import com.polovnev.location.dto.LocationDto;
+import com.polovnev.location.entity.Location;
 import com.polovnev.location.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,5 +23,10 @@ public class LocationFacade {
     public List<LocationDto> findByCountryId(Long countryId) {
         return locationService.findByCountryId(countryId).stream()
                 .map(locationConverter::entityToDto).collect(Collectors.toList());
+    }
+
+    public LocationDto getLocationById(Long locationId) {
+        Location location = locationService.getLocationById(locationId);
+        return locationConverter.entityToDto(location);
     }
 }

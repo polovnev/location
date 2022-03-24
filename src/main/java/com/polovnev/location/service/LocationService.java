@@ -7,4 +7,6 @@ import java.util.List;
 public interface LocationService {
 
     List<Location> findByCountryId(Long countryId);
+
+    Location getLocationById(Long locationId);
 }
